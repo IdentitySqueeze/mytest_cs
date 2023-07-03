@@ -221,17 +221,25 @@ public class MyUtils {
             return IsPrimeCache[x];
         bool rtn = true;
         try {
-            if (x == 2)
+            if (x == 2) {
+                IsPrimeCache[x]=true;
                 return true;
-            if (x < 2)
+            }
+            if (x < 2) {
+                IsPrimeCache[x]=false;
                 return false;
-            if (x % 2 == 0 && x > 2)
+            }
+            if (x % 2 == 0 && x > 2) {
+                IsPrimeCache[x]=false;
                 return false;
+            }
             if (x < max_prime) {
-                rtn= primes.Contains(x);
+                IsPrimeCache[x] = primes.Contains(x);
+                return IsPrimeCache[x];
             } else {
                 for (int y = 3; y <= x; y++) {
                     if (y % x == 0) {
+                        IsPrimeCache[x]=false;
                         rtn= false;
                         break;
                     }
@@ -243,7 +251,7 @@ public class MyUtils {
             myLog( "myTestIsPrime - " + ex.Message);
             throw;
         }
-        return true;
+        return true; //uc
     }
 
     public int[] myTestPrimeFactors(int x) {
@@ -254,10 +262,14 @@ public class MyUtils {
             //if (x > 1048577)
             if (x > 1000000)
                 throw new Exception("Argument exception: myTestPrimefactors(" + x + "})");
-            if (x < 2)
-                return new int[] { 0 };
-            if (x < 4)
-                return new int[] { x };
+            if (x < 2) {
+                primeFactorsCache[x] =new int[] { 0 };
+                return primeFactorsCache[x];
+            }
+            if (x < 4) {
+                primeFactorsCache[x] =new int[] { x };
+                return primeFactorsCache[x];
+            }
             int i = 0;
             try {
                 i = Math.Max(x / Math.Max(((Int32)(Math.Abs(x)).ToString().Length * 2), 1), 1)+5;
