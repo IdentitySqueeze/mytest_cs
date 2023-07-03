@@ -255,9 +255,10 @@ public class MyUtils {
     }
 
     public int[] myTestPrimeFactors(int x) {
-        if(primeFactorsCache.ContainsKey(x)) 
+        if (primeFactorsCache.ContainsKey(x)) 
             return primeFactorsCache[x];
         List<int> rtn = new List<int>();
+        int orig = x;
         try {
             //if (x > 1048577)
             if (x > 1000000)
@@ -296,8 +297,8 @@ public class MyUtils {
             throw;
         }
         rtn.Reverse();
-        primeFactorsCache[x] = rtn.ToArray();
-        return primeFactorsCache[x]; 
+        primeFactorsCache[orig] = rtn.ToArray();
+        return primeFactorsCache[orig]; 
     }
 
     public long myTestLcm(int[] arr) {
@@ -886,6 +887,7 @@ public class MyUtils {
         if (StandardFormCache.ContainsKey(x))
             return StandardFormCache[x];
         int sign = 0;
+        double orig = x;
         bool expSigned = false;
         int shifts = 0;
         int floatLen = 0;
@@ -938,7 +940,7 @@ public class MyUtils {
         }
 
         //return (x*sign).ToString("F"+floatLen.ToString()) + "*10" + myLibToSup((expSigned ? "-" : "") + shifts.ToString());
-        StandardFormCache[x] = (x*sign).ToString("F"+floatLen.ToString()) + "*10" + myLibToSup((expSigned ? "-" : "") + shifts.ToString());
-        return StandardFormCache[x];
+        StandardFormCache[orig] = (x*sign).ToString("F"+floatLen.ToString()) + "*10" + myLibToSup((expSigned ? "-" : "") + shifts.ToString());
+        return StandardFormCache[orig];
     }
 }
